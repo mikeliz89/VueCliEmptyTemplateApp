@@ -1,5 +1,7 @@
 <template>
   <div class="hello">
+
+    <canvas id="myChart"></canvas>
     <h1>{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
@@ -27,14 +29,45 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+    
   </div>
 </template>
 
 <script>
+  import Chart from 'chart.js';
+
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  mounted: function () {
+    console.log("mounted")
+    this.createChart()
+  },
+  
+  methods:  {
+    createChart : function() {
+      var ctx = document.getElementById('myChart').getContext('2d');
+      new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'line',
+
+          // The data for our dataset
+          data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'My First dataset',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [0, 10, 5, 2, 20, 30, 45]
+            }]
+        },
+        // Configuration options go here
+        options: {}
+      });
+    }
   }
 }
 </script>
